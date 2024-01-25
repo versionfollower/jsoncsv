@@ -14,11 +14,12 @@ namespace json
     {
         static void Main(string[] args)
         {
+            //Files names
             string jsonfile = "result.json";
             string csvfile = "output.csv";
 
 
-            // Get the directory where the executable is located
+            // Get the directory where the executable is located and get the parent directory
             string executableDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string projectRoot = Directory.GetParent(executableDirectory)?.Parent?.FullName;
 
@@ -26,22 +27,17 @@ namespace json
             string jsonrelativePath = Path.Combine(projectRoot, jsonfile);
             string csvrelativePath = Path.Combine(projectRoot, csvfile);
 
-            // Using relative path
-
-            // Navigate up one directory level to reach the project root
-            
-
-
-            //string jsonFilePath = @"C:\Users\EDDY\source\repos\json\json\result.json";
-            //string test = ".\result.json";
-            //string csvFilePath = @"C:\Users\EDDY\source\repos\json\json\output.csv";
-
+            //Intances Objects
             var jsonReader = new ReadJson();
             var csvWriter = new WriteCsv();
-            var converter = new JsonConvertCsv(jsonReader, csvWriter);
             var generateMetrics = new GenerateMetrics();
             var metricsCalculator = new MetricsCalculator();
+            var converter = new JsonConvertCsv(jsonReader, csvWriter);
+
+            //convert the json to Csv using the relatives paths from json and csv file
+            //and save in tests variable all the information that are in the json file
             var tests = converter.Convert(jsonrelativePath, csvrelativePath);
+            //Use the data in tests variable and generate metrics 
             generateMetrics.CalculateMetrics(tests, metricsCalculator);
 
             Console.WriteLine("Conversion complete.");

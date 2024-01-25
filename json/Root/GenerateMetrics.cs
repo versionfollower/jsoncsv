@@ -12,7 +12,13 @@ namespace json.Root
 {
     public class GenerateMetrics : IMetricsCalculator
     {
-
+        /// <summary>
+        /// This Method is getting all the list of the result of the tests cases and is calculating metrics.
+        /// All the calculation of the metrics are sending to metrics variable
+        /// then the information is printing to the console.
+        /// </summary>
+        /// <param name="testResults"></param>
+        /// <param name="metrics"></param>
         public void CalculateMetrics(List<TestResult> testResults, MetricsCalculator metrics)
         {
             metrics.TotalTestCases = testResults.Count;
@@ -44,8 +50,11 @@ namespace json.Root
             metrics.AverageExecutionTime /= metrics.TotalTestCases;
             PrintingData(metrics);
         }
-        //Printing the Object, this could be added to a csv or generate as a Json Object or send to the database or send to an HTML Report
- 
+        /// <summary>
+        /// Printing the Object, this could be added to a csv or generate as a Json Object 
+        /// or send to the database or send to an HTML Report
+        /// </summary>
+        /// <param name="metrics"></param>
         public void PrintingData(MetricsCalculator metrics)
         {
             Console.WriteLine("Total Test Cases : " + metrics.TotalTestCases);
